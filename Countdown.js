@@ -17,29 +17,47 @@ Countdown.prototype.printTime = function () {
     this.printTimeP.innerText = ` ${this.h.toString()} : ${this.min.toString()} : ${this.sec.toString()}`;
 }
 
-// more than 59 for sec and min
-Countdown.prototype.isSup = function () {
-    if (this.h.length === 2 && this.min.length === 2 && this.sec.length === 2) {
-        if (parseInt(this.sec) > 59) {
-            this.min = (parseInt(this.min) + 1).toString();
-            this.sec -= 60;
-        }
-        if (parseInt(this.min) > 59) {
-            this.h = (parseInt(this.h) + 1).toString();
-            this.min -= 60;
-        }
+// sec or/and min equal to zero
+Countdown.prototype.isZero = function () {
+
+    if (parseInt(this.sec) === -1) {
+        this.min = (parseInt(this.min) - 1).toString();
+        this.sec = 59;
+        console.log('test')
+    }
+
+    if (parseInt(this.min) === -1) {
+        this.h = (parseInt(this.h) - 1).toString();
+        this.min = 59;
     }
 }
 
 // chek if the input value is valid
 Countdown.prototype.checkInput = function () {
 
-    this.isSup()
+    this.isZero()
+
+    if (this.h.length < 3 && this.min.length < 3 && this.sec.length < 3) {
 
         if (parseInt(this.h) > 0 || parseInt(this.min) > 0 || parseInt(this.sec) > 0) {
+
+            // too much seconds
+            if (parseInt(this.sec) > 60) {
+                this.sec = parseInt(this.sec) - 60;
+                this.min = parseInt(this.min) + 1;
+            }
+
+            // too much minutes
+            if (parseInt(this.min) > 60) {
+                this.min = parseInt(this.min) - 60;
+                this.h = parseInt(this.h) + 1;
+            }
+
             this.printTime();
             this.isValidTime = true;
         }
+    }
+
 
 }
 
@@ -63,12 +81,15 @@ Countdown.prototype.createHtmlBase = function() {
 // set the countdown
 let timeout = null;
 Countdown.prototype.setCountdown = function () {
-     timeout = setTimeout(() => {
-         this.sec = (parseInt(this.sec) + 1).toString()
-         this.isSup();
-         this.printTime();
-         this.setCountdown();
-     }, 1000)
+    if (!(parseInt(this.h) === 0 && parseInt(this.min) === 0 && parseInt(this.sec) === 0)) {
+        timeout = setTimeout(() => {
+            this.sec = (parseInt(this.sec) - 1).toString()
+            this.isZero();
+            this.printTime();
+            this.setCountdown();
+        }, 1000)
+    }
+
 }
 
 // stop the countdown
