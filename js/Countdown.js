@@ -7,7 +7,8 @@ const Countdown = function (hours, minutes, seconds) {
     // HTML elements
     this.div = document.createElement('div');
     this.printTimeP = document.createElement('p');
-    this.stopPlayButton = document.createElement('button');
+    this.playButton = document.createElement('button');
+    this.stopButton = document.createElement('button')
     this.resetButton = document.createElement('button');
 
 }
@@ -23,7 +24,6 @@ Countdown.prototype.isZero = function () {
     if (parseInt(this.sec) === -1) {
         this.min = (parseInt(this.min) - 1).toString();
         this.sec = 59;
-        console.log('test')
     }
 
     if (parseInt(this.min) === -1) {
@@ -68,12 +68,17 @@ Countdown.prototype.createHtmlBase = function() {
         document.body.appendChild(this.div);
         this.div.appendChild(this.printTimeP);
 
-        this.stopPlayButton.innerText = 'Lancer';
-        this.div.appendChild(this.stopPlayButton);
-        this.stopPlayButton.addEventListener("click", () => this.setCountdown());
+        this.playButton.innerText = 'Lancer';
+        this.div.appendChild(this.playButton);
+        this.playButton.addEventListener("click", () => this.setCountdown());
 
-        this.resetButton.innerText = 'Réinitialiser';
+        this.stopButton.innerText = "Stop";
+        this.div.appendChild(this.stopButton);
+        this.stopButton.addEventListener("click", () => this.stopCountdown());
+
+        this.resetButton.innerText = 'Effacer';
         this.div.appendChild(this.resetButton);
+        this.resetButton.addEventListener("click", () => this.div.remove());
     }
 
 }
@@ -96,16 +101,3 @@ Countdown.prototype.setCountdown = function () {
 Countdown.prototype.stopCountdown = function () {
     clearTimeout(timeout);
 }
-
-
-const hInput = document.getElementById('h');
-const mInput = document.getElementById('m');
-const sInput = document.getElementById('s');
-
-document.getElementById('submit').addEventListener("click", () => {
-    let test = new Countdown(hInput.value, mInput.value, sInput.value);
-
-    test.checkInput()
-    test.createHtmlBase();
-})
-
