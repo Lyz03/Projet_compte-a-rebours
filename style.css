@@ -1,0 +1,46 @@
+body {
+    font-family: sans-serif;
+    color: gray;
+}
+
+h1 {
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input[type="number"] {
+    width: 4rem;
+}
+
+button, input[type="submit"] {
+    padding: 0.3rem 0.7rem;
+    color: white;
+    border: none;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #d3d2d2;
+}
+
+input[type="submit"] {
+    background-color: #ddcbe5;
+}
+
+button {
+    background-color: #a3bfdb;
+}
+
+.countdown {
+    margin: 1rem auto;
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid #c4c4c4;
+    border-radius: 20px;
+    width: 15rem;
+}

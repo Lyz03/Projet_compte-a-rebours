@@ -66,6 +66,8 @@ Countdown.prototype.createHtmlBase = function() {
 
     if (this.isValidTime) {
         document.body.appendChild(this.div);
+        this.div.className = "countdown"
+
         this.div.appendChild(this.printTimeP);
 
         this.playButton.innerText = 'Lancer';

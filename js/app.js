@@ -8,4 +8,3 @@ document.getElementById('submit').addEventListener("click", () => {
     newCountdown.checkInput()
     newCountdown.createHtmlBase();
 })
-
